@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Line, Bar, Pie } from "react-chartjs-2";
 import "chart.js/auto";
-import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -15,7 +15,7 @@ const App = () => {
       .then(response => response.json())
       .then(data => {
         if (Array.isArray(data)) {
-          setWeatherData(data.reverse()); // Ensure oldest date is first
+          setWeatherData(data.reverse());
         } else {
           console.error("Invalid API response format:", data);
           setError("Invalid API response format.");
@@ -33,13 +33,11 @@ const App = () => {
     return <h1 className="text-center mt-4">Loading Weather Data...</h1>;
   if (error) return <h1 className="text-center mt-4 text-danger">{error}</h1>;
 
-  // Extract data for charts
   const labels = weatherData.map(day => day.date);
   const maxTemp = weatherData.map(day => day.max_temp);
   const minTemp = weatherData.map(day => day.min_temp);
   const weatherConditions = weatherData.map(day => day.weather_condition);
 
-  // Count occurrences of weather conditions for Pie Chart
   const conditionCounts = weatherConditions.reduce((acc, condition) => {
     acc[condition] = (acc[condition] || 0) + 1;
     return acc;

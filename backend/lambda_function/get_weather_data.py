@@ -16,15 +16,15 @@ def get_query_results(query_execution_id):
 
         if state in ["SUCCEEDED", "FAILED", "CANCELLED"]:
             break
-        time.sleep(2)  # Wait for the query to complete
+        time.sleep(2)
 
     if state == "SUCCEEDED":
         result_response = athena_client.get_query_results(QueryExecutionId=query_execution_id)
         rows = result_response["ResultSet"]["Rows"]
 
-        # Parse the result set
+        
         results = []
-        for row in rows[1:]:  # Skip the header row
+        for row in rows[1:]:
             results.append({
                 "date": row["Data"][0]["VarCharValue"],
                 "max_temp": row["Data"][1]["VarCharValue"],
@@ -47,7 +47,6 @@ def lambda_handler(event, context):
 
     query_execution_id = response["QueryExecutionId"]
     
-    # Fetch query results
     weather_data = get_query_results(query_execution_id)
 
     return {
