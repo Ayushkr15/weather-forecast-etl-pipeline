@@ -1,4 +1,4 @@
-# Weather ETL Pipeline
+# Weather Forecast ETL Pipeline
 
 ## Overview
 This project implements an ETL (Extract , Transform , Load) pipeline using AWS services to fetch data from [Yahoo weather API](https://rapidapi.com/apishub/api/yahoo-weather5) , process it , and store data and push data to AWS API Gateway and calling it from frontend. The project shows weather forcast for mumbai city which get automatically updates each day with AWS trigger.
