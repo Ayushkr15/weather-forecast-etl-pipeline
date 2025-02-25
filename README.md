@@ -45,9 +45,9 @@ weather_etl_pipeline/
 
 ## ☁️ AWS Components
 - Amazon CloudWatch: ⏰ Triggers the Lambda function to extract Spotify data on a schedule.
-- AWS Lambda (Extraction): 🏗️ Fetches raw playlist data from the Spotify API and stores it in S3.
+- AWS Lambda (Extraction): 🏗️ Fetches raw data from the weather API and stores it in S3.
 - Amazon S3 (Raw Storage): 📦 Stores extracted JSON data.
-- AWS Lambda (Transformation): 🔄 Processes and structures the data into tables (Albums, Artists, Songs).
+- AWS Lambda (Transformation): 🔄 Processes and structures the data into tables.
 - Amazon S3 (Processed Storage): 📂 Stores the transformed CSV data.
 - AWS Glue Crawler: 🔍 Infers the schema of transformed data.
 - AWS Glue Data Catalog: 📖 Stores metadata for querying in Athena.
