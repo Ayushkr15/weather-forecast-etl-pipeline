@@ -50,7 +50,7 @@ const App = () => {
         {/* Temperature Trend (Line Chart) */}
         <div className="col-md-6 mb-4">
           <div className="card h-100 shadow-sm">
-            <div className="card-header">Temperature Trend (Last 7 Days)</div>
+            <div className="card-header">Temperature Trend (Upcoming 7 Days)</div>
             <div className="card-body" style={{ height: "300px" }}>
               <Line
                 data={{
