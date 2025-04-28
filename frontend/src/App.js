@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Line, Bar, Pie } from "react-chartjs-2";
 import "chart.js/auto";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Pie } from "react-chartjs-2";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -30,7 +31,7 @@ const App = () => {
   }, []);
 
   if (loading)
-    return <h1 className="text-center mt-4">Loading Weather Data...</h1>;
+    return <h1 className="text-center mt-4">Loading Real Time News Data...</h1>;
   if (error) return <h1 className="text-center mt-4 text-danger">{error}</h1>;
 
   const labels = weatherData.map(day => day.date);
@@ -45,25 +46,25 @@ const App = () => {
 
   return (
     <div className="container mt-4">
-      <h1 className="text-center mb-4">🌦️ Weather Forecast Dashboard</h1>
+      <h1 className="text-center mb-4"> Real Time News Analysis </h1>
       <div className="row">
         {/* Temperature Trend (Line Chart) */}
         <div className="col-md-6 mb-4">
           <div className="card h-100 shadow-sm">
-            <div className="card-header">Temperature Trend (Upcoming 7 Days)</div>
+            <div className="card-header">News Article Activity Trend (Next 7 Days)</div>
             <div className="card-body" style={{ height: "300px" }}>
               <Line
                 data={{
                   labels,
                   datasets: [
                     {
-                      label: "Max Temperature (°C)",
+                      label: "Sentiment Score",
                       data: maxTemp,
                       borderColor: "red",
                       fill: false,
                     },
                     {
-                      label: "Min Temperature (°C)",
+                      label: "Number of News Articles",
                       data: minTemp,
                       borderColor: "blue",
                       fill: false,
@@ -81,19 +82,19 @@ const App = () => {
         {/* Temperature Distribution (Bar Chart) */}
         <div className="col-md-6 mb-4">
           <div className="card h-100 shadow-sm">
-            <div className="card-header">Max vs Min Temperature</div>
+            <div className="card-header">News Trend</div>
             <div className="card-body" style={{ height: "300px" }}>
               <Bar
                 data={{
                   labels,
                   datasets: [
                     {
-                      label: "Max Temperature (°C)",
+                      label: "Date",
                       data: maxTemp,
                       backgroundColor: "red",
                     },
                     {
-                      label: "Min Temperature (°C)",
+                      label: "Number of News Articles",
                       data: minTemp,
                       backgroundColor: "blue",
                     },
@@ -108,39 +109,53 @@ const App = () => {
         </div>
 
         {/* Weather Condition Distribution (Pie Chart) */}
-        <div className="col-md-6 mb-4">
-          <div className="card h-100 shadow-sm">
-            <div className="card-header">Weather Condition Distribution</div>
-            <div className="card-body" style={{ height: "300px" }}>
-              <Pie
-                data={{
-                  labels: Object.keys(conditionCounts),
-                  datasets: [
-                    {
-                      data: Object.values(conditionCounts),
-                      backgroundColor: ["orange", "gray", "yellow", "blue"],
-                    },
-                  ],
-                }}
-                options={{
-                  maintainAspectRatio: false,
-                }}
-              />
-            </div>
-          </div>
+
+const NewsCategoryChart = () => {
+  const newsCategoryCounts = {
+    "Politics News": 45,
+    "Business News": 30,
+    "Technology News": 15,
+    "Entertainment News": 10,
+  };
+
+       <div className="col-md-6 mb-4">
+      <div className="card h-100 shadow-sm">
+        <div className="card-header">News Category Distribution</div>
+        <div className="card-body" style={{ height: "300px" }}>
+          <Pie
+            data={{
+              labels: Object.keys(newsCategoryCounts),
+              datasets: [
+                {
+                  data: Object.values(newsCategoryCounts),
+                  backgroundColor: ["orange", "gray", "yellow", "blue"],
+                },
+              ],
+            }}
+            options={{
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  position: "bottom",
+                },
+              },
+            }}
+          />
         </div>
+      </div>
+    </div>
 
         {/* Temperature Spread (Bar Chart) */}
         <div className="col-md-6 mb-4">
           <div className="card h-100 shadow-sm">
-            <div className="card-header">Temperature Variability</div>
+            <div className="card-header">Daily News Article Volume (Last 7 Days)</div>
             <div className="card-body" style={{ height: "300px" }}>
               <Bar
                 data={{
                   labels,
                   datasets: [
                     {
-                      label: "Temperature Range (°C)",
+                      label: "Frequency",
                       data: maxTemp.map((t, i) => t - minTemp[i]),
                       backgroundColor: "purple",
                     },
@@ -157,15 +172,15 @@ const App = () => {
         {/* Future Expansion: Humidity Trend */}
         <div className="col-md-12 mb-4">
           <div className="card h-100 shadow-sm">
-            <div className="card-header">Humidity Trend (Future Data)</div>
+            <div className="card-header">Most Trending Category in India</div>
             <div className="card-body" style={{ height: "300px" }}>
               <Line
                 data={{
                   labels,
                   datasets: [
                     {
-                      label: "Humidity (%)",
-                      data: [65, 70, 68, 72, 75, 73, 74],
+                      label: "Politics",
+                      data: [65, 70, 68, 72, 75, 73, 100],
                       borderColor: "green",
                       fill: false,
                     },
