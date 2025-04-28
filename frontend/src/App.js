@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Line, Bar, Pie } from "react-chartjs-2";
+import { Line, Bar} from "react-chartjs-2";
 import "chart.js/auto";
 import "bootstrap/dist/css/bootstrap.min.css";
 
