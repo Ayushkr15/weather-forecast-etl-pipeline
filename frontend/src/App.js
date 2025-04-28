@@ -109,40 +109,6 @@ const App = () => {
 
         {/* Weather Condition Distribution (Pie Chart) */}
 
-const NewsCategoryChart = () => {
-  const newsCategoryCounts = {
-    "Politics News": 45,
-    "Business News": 30,
-    "Technology News": 15,
-    "Entertainment News": 10,
-  };
-
-       <div className="col-md-6 mb-4">
-      <div className="card h-100 shadow-sm">
-        <div className="card-header">News Category Distribution</div>
-        <div className="card-body" style={{ height: "300px" }}>
-          <Pie
-            data={{
-              labels: Object.keys(newsCategoryCounts),
-              datasets: [
-                {
-                  data: Object.values(newsCategoryCounts),
-                  backgroundColor: ["orange", "gray", "yellow", "blue"],
-                },
-              ],
-            }}
-            options={{
-              maintainAspectRatio: false,
-              plugins: {
-                legend: {
-                  position: "bottom",
-                },
-              },
-            }}
-          />
-        </div>
-      </div>
-    </div>
 
         {/* Temperature Spread (Bar Chart) */}
         <div className="col-md-6 mb-4">
