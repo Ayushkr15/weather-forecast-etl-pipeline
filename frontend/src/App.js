@@ -38,10 +38,7 @@ const App = () => {
   const minTemp = weatherData.map(day => day.min_temp);
   const weatherConditions = weatherData.map(day => day.weather_condition);
 
-  const conditionCounts = weatherConditions.reduce((acc, condition) => {
-    acc[condition] = (acc[condition] || 0) + 1;
-    return acc;
-  }, {});
+
 
   return (
     <div className="container mt-4">
