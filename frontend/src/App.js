@@ -50,7 +50,9 @@ const App = () => {
         {/* Temperature Trend (Line Chart) */}
         <div className="col-md-6 mb-4">
           <div className="card h-100 shadow-sm">
-            <div className="card-header">Temperature Trend (Upcoming 7 Days)</div>
+            <div className="card-header">
+              Temperature Trend (Upcoming 7 Days)
+            </div>
             <div className="card-body" style={{ height: "300px" }}>
               <Line
                 data={{
@@ -143,31 +145,6 @@ const App = () => {
                       label: "Temperature Range (°C)",
                       data: maxTemp.map((t, i) => t - minTemp[i]),
                       backgroundColor: "purple",
-                    },
-                  ],
-                }}
-                options={{
-                  maintainAspectRatio: false,
-                }}
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Future Expansion: Humidity Trend */}
-        <div className="col-md-12 mb-4">
-          <div className="card h-100 shadow-sm">
-            <div className="card-header">Humidity Trend (Future Data)</div>
-            <div className="card-body" style={{ height: "300px" }}>
-              <Line
-                data={{
-                  labels,
-                  datasets: [
-                    {
-                      label: "Humidity (%)",
-                      data: [65, 70, 68, 72, 75, 73, 74],
-                      borderColor: "green",
-                      fill: false,
                     },
                   ],
                 }}
