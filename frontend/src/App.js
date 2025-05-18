@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Line, Bar } from "react-chartjs-2"; // Only Line and Bar now
+import { Line, Bar, Pie } from "react-chartjs-2";
 import "chart.js/auto";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -30,34 +30,40 @@ const App = () => {
   }, []);
 
   if (loading)
-    return <h1 className="text-center mt-4">Loading Real Time News Data...</h1>;
+    return <h1 className="text-center mt-4">Loading Weather Data...</h1>;
   if (error) return <h1 className="text-center mt-4 text-danger">{error}</h1>;
 
   const labels = weatherData.map(day => day.date);
   const maxTemp = weatherData.map(day => day.max_temp);
   const minTemp = weatherData.map(day => day.min_temp);
+  const weatherConditions = weatherData.map(day => day.weather_condition);
+
+  const conditionCounts = weatherConditions.reduce((acc, condition) => {
+    acc[condition] = (acc[condition] || 0) + 1;
+    return acc;
+  }, {});
 
   return (
     <div className="container mt-4">
-      <h1 className="text-center mb-4">Real Time News Analysis</h1>
+      <h1 className="text-center mb-4">🌦️ Weather Forecast Dashboard</h1>
       <div className="row">
-        {/* News Sentiment Trend (Line Chart) */}
+        {/* Temperature Trend (Line Chart) */}
         <div className="col-md-6 mb-4">
           <div className="card h-100 shadow-sm">
-            <div className="card-header">News Article Activity Trend (Next 7 Days)</div>
+            <div className="card-header">Temperature Trend (Upcoming 7 Days)</div>
             <div className="card-body" style={{ height: "300px" }}>
               <Line
                 data={{
                   labels,
                   datasets: [
                     {
-                      label: "Sentiment Score",
+                      label: "Max Temperature (°C)",
                       data: maxTemp,
                       borderColor: "red",
                       fill: false,
                     },
                     {
-                      label: "Number of News Articles",
+                      label: "Min Temperature (°C)",
                       data: minTemp,
                       borderColor: "blue",
                       fill: false,
@@ -72,22 +78,22 @@ const App = () => {
           </div>
         </div>
 
-        {/* News Distribution (Bar Chart) */}
+        {/* Temperature Distribution (Bar Chart) */}
         <div className="col-md-6 mb-4">
           <div className="card h-100 shadow-sm">
-            <div className="card-header">News Trend Distribution</div>
+            <div className="card-header">Max vs Min Temperature</div>
             <div className="card-body" style={{ height: "300px" }}>
               <Bar
                 data={{
                   labels,
                   datasets: [
                     {
-                      label: "Max Sentiment Score",
+                      label: "Max Temperature (°C)",
                       data: maxTemp,
                       backgroundColor: "red",
                     },
                     {
-                      label: "Min Sentiment Score",
+                      label: "Min Temperature (°C)",
                       data: minTemp,
                       backgroundColor: "blue",
                     },
@@ -101,17 +107,40 @@ const App = () => {
           </div>
         </div>
 
-        {/* Sentiment Variability (Bar Chart) */}
+        {/* Weather Condition Distribution (Pie Chart) */}
         <div className="col-md-6 mb-4">
           <div className="card h-100 shadow-sm">
-            <div className="card-header">Daily News Article Volume (Last 7 Days)</div>
+            <div className="card-header">Weather Condition Distribution</div>
+            <div className="card-body" style={{ height: "300px" }}>
+              <Pie
+                data={{
+                  labels: Object.keys(conditionCounts),
+                  datasets: [
+                    {
+                      data: Object.values(conditionCounts),
+                      backgroundColor: ["orange", "gray", "yellow", "blue"],
+                    },
+                  ],
+                }}
+                options={{
+                  maintainAspectRatio: false,
+                }}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Temperature Spread (Bar Chart) */}
+        <div className="col-md-6 mb-4">
+          <div className="card h-100 shadow-sm">
+            <div className="card-header">Temperature Variability</div>
             <div className="card-body" style={{ height: "300px" }}>
               <Bar
                 data={{
                   labels,
                   datasets: [
                     {
-                      label: "Sentiment Variability",
+                      label: "Temperature Range (°C)",
                       data: maxTemp.map((t, i) => t - minTemp[i]),
                       backgroundColor: "purple",
                     },
@@ -125,18 +154,18 @@ const App = () => {
           </div>
         </div>
 
-        {/* Trending Category (Line Chart) */}
+        {/* Future Expansion: Humidity Trend */}
         <div className="col-md-12 mb-4">
           <div className="card h-100 shadow-sm">
-            <div className="card-header">Most Trending Category in India</div>
+            <div className="card-header">Humidity Trend (Future Data)</div>
             <div className="card-body" style={{ height: "300px" }}>
               <Line
                 data={{
                   labels,
                   datasets: [
                     {
-                      label: "Politics",
-                      data: [65, 70, 68, 72, 75, 73, 78],
+                      label: "Humidity (%)",
+                      data: [65, 70, 68, 72, 75, 73, 74],
                       borderColor: "green",
                       fill: false,
                     },
@@ -149,7 +178,6 @@ const App = () => {
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );
